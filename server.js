@@ -2,8 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
-const PORT = process.env.PORT || 5000;
-
 
 dotenv.config();
 
@@ -20,7 +18,9 @@ let count = 0;
 
 app.get("/", (req, res) => {
   count++;
-  res.send("Visitors: " + count);
+  res.json({
+    Visitors: count,
+  });
 });
 app.post("/generate-resume", async (req, res) => {
   try {
@@ -93,7 +93,6 @@ app.post("/analyze-resume", async (req, res) => {
   }
 });
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(5000, () => {
+  console.log("Server running on http://localhost:5000");
 });
-
