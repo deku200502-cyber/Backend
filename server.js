@@ -14,12 +14,12 @@ const MODEL = "llama-3.3-70b-versatile";
 /* =========================================================
    ROUTE 1 → RESUME GENERATOR
 ========================================================= */
-app.get("/",(req,res)=>{
-    res.json({
-    message: "Server is running",
-    status: "success"
+let count = 0;
+
+app.get("/", (req, res) => {
+  count++;
+  res.send("Visitors: " + count);
 });
-})
 app.post("/generate-resume", async (req, res) => {
   try {
     const { prompt } = req.body;
@@ -37,7 +37,7 @@ app.post("/generate-resume", async (req, res) => {
           messages: [{ role: "user", content: prompt }],
           temperature: 0.3,
         }),
-      }
+      },
     );
 
     const data = await response.json();
@@ -71,13 +71,16 @@ app.post("/analyze-resume", async (req, res) => {
           messages: [{ role: "user", content: prompt }],
           temperature: 0.3,
         }),
-      }
+      },
     );
 
     const data = await response.json();
     let raw = data.choices[0].message.content;
 
-    raw = raw.replace(/```json/gi, "").replace(/```/g, "").trim();
+    raw = raw
+      .replace(/```json/gi, "")
+      .replace(/```/g, "")
+      .trim();
 
     const parsed = JSON.parse(raw);
 
