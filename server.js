@@ -23,6 +23,7 @@ app.get("/", (req, res) => {
   });
 });
 app.post("/generate-resume", async (req, res) => {
+   count++;
   try {
     const { prompt } = req.body;
 
@@ -57,6 +58,7 @@ app.post("/generate-resume", async (req, res) => {
 ========================================================= */
 
 app.post("/analyze-resume", async (req, res) => {
+   count++;
   try {
     const { prompt } = req.body;
 
@@ -96,3 +98,4 @@ app.post("/analyze-resume", async (req, res) => {
 app.listen(5000, () => {
   console.log("Server running on http://localhost:5000");
 });
+
